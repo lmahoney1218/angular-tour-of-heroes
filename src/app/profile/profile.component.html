@@ -11,5 +11,6 @@
         <label for="email">Email</label>
         <input type="text" id="email" formControlName="email">
     </p>
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    <p>form status: {{ profileForm.status }}</p>
 </form>

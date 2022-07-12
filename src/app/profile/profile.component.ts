@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -26,13 +26,13 @@ export class ProfileComponent implements OnInit {
 
   //form group
   profileForm = new FormGroup({
-    firstName: new FormControl(), 
-    lastName: new FormControl(),
-    email: new FormControl()
+    firstName: new FormControl('', Validators.required), 
+    lastName: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required)
   });
 
   patchProfileForm() {
-    
+
     //connecting profile data to the form
     this.profileForm.patchValue(this.profile)
   }
@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-   this.patchProfileForm();
+   //this.patchProfileForm();
   }
 
   onSubmit() {

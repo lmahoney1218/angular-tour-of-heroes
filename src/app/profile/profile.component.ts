@@ -27,16 +27,21 @@ export class ProfileComponent implements OnInit {
 
   profileForm!: FormGroup;
 
+  private firstName = new FormControl('', Validators.required);
+  private lastName = new FormControl('', Validators.required);
+  private email = new FormControl('', [ Validators.required, customEmailValidator() ])
+
   constructor() { }
 
   ngOnInit(): void {
    //this.patchProfileForm();
 
     this.profileForm = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl('', [ Validators.required, customEmailValidator() ])
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email
     });
+
   } 
 
   patchProfileForm() {
@@ -46,6 +51,14 @@ export class ProfileComponent implements OnInit {
 
   onSubmit() {
     console.log(this.profileForm.value)
+  }
+
+  emailError() {
+    if(this.email.getError('invalidEmail') && this.email.dirty) {
+      return true;
+    }
+    return null;
+
   }
 
 }

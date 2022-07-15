@@ -50,8 +50,8 @@ export class ProfileComponent implements OnInit {
     this.profileForm.patchValue(this.profile)
   }
 
-  onSubmit() {
-    console.log(this.profileForm.value)
+  onSubmit(formValues:Profile) {
+    console.log(formValues)
   }
 
   emailError() {

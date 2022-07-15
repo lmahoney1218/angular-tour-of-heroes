@@ -28,9 +28,9 @@ export class ProfileComponent implements OnInit {
 
   profileForm!: FormGroup;
 
-  private firstName = new FormControl('', Validators.required);
-  private lastName = new FormControl('', Validators.required);
-  private email = new FormControl('', [ Validators.required, customEmailValidator() ])
+  firstName = new FormControl('', Validators.required);
+  lastName = new FormControl('', Validators.required);
+  email = new FormControl('', [ Validators.required, customEmailValidator() ])
 
   constructor() { }
 
@@ -47,7 +47,6 @@ export class ProfileComponent implements OnInit {
   } 
 
   patchProfileForm() {
-    //connecting profile data to the form
     this.profileForm.patchValue(this.profile)
   }
 

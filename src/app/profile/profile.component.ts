@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { customEmailValidator } from './validators/email.validator';
 import { Profile } from './profile.model';
 
@@ -32,15 +32,30 @@ export class ProfileComponent implements OnInit {
   lastName = new FormControl('', Validators.required);
   email = new FormControl('', [ Validators.required, customEmailValidator() ])
 
+  testArray!: FormArray;
+ 
   constructor() { }
 
-  ngOnInit(): void {
+  getFormControl(index: number): FormControl{
+    return this.testArray.controls[index] as FormControl;
+  }
   
+  showArrayValues() {
+    console.log(this.testArray.value)
+  }
+
+  addFormControl() {
+    this.testArray.push(new FormControl(''))
+  }
+
+  ngOnInit(): void {
     this.profileForm = new FormGroup({
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email
     });
+
+    this.testArray = new FormArray([new FormControl(''), new FormControl('')]);
 
     this.patchProfileForm();
 

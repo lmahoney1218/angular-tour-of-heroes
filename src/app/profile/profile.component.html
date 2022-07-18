@@ -14,12 +14,18 @@
         <input type="text" id="email" formControlName="email">
         <span class="error-message" *ngIf="emailError()">Must include "@" symbol</span>
     </p>
+
+        <div *ngFor="let control of phoneNumbers.controls; let i = index;">
+            <p>
+                <label>Number</label>
+                <input [formControl]="createFormControl(i)"/>
+            </p>   
+        </div>
+        <button (click)="addFormControl()">add</button>
+
     <button type="submit" [disabled]="profileForm.invalid">Submit</button>
+
     <p>form status: {{ profileForm.status }}</p>
 </form>
 
-<div *ngFor="let control of testArray.controls; let i = index;">
-    <input placeholder="{{i}} control" [formControl]="getFormControl(i)" id="control_{{i}}"/>
-</div>
-<button (click)="showArrayValues()">get array values</button>
-<button (click)="addFormControl()">add</button>
+

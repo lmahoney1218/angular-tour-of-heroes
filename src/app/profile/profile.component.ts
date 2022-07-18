@@ -16,14 +16,14 @@ export class ProfileComponent implements OnInit {
     "firstName": "Laura",
     "lastName": "Mahoney",
     "email": "laura@test.com",
-    // "phoneNumbers": [
-    //     {
-    //         "number": "111-111-1111"
-    //     },
-    //     {
-    //         "number": "222-222-2222",
-    //     }
-    // ]
+    "phoneNumbers": [
+        {
+            "number": "111-111-1111"
+        },
+        {
+            "number": "222-222-2222",
+        }
+    ]
   }
 
   profileForm!: FormGroup;
@@ -31,31 +31,33 @@ export class ProfileComponent implements OnInit {
   firstName = new FormControl('', Validators.required);
   lastName = new FormControl('', Validators.required);
   email = new FormControl('', [ Validators.required, customEmailValidator() ])
-
-  testArray!: FormArray;
+  number = new FormControl('');
  
   constructor() { }
 
-  getFormControl(index: number): FormControl{
-    return this.testArray.controls[index] as FormControl;
+  get phoneNumbers() {
+    return this.profileForm.controls['phoneNumbers'] as FormArray
   }
-  
-  showArrayValues() {
-    console.log(this.testArray.value)
+
+  createFormControl(index: number): FormControl{
+    return this.phoneNumbers.controls[index] as FormControl;
   }
 
   addFormControl() {
-    this.testArray.push(new FormControl(''))
+    const newNumber = new FormGroup({
+      number: new FormControl('')
+    })
+
+    this.phoneNumbers.push(newNumber)
   }
 
   ngOnInit(): void {
     this.profileForm = new FormGroup({
       firstName: this.firstName,
       lastName: this.lastName,
-      email: this.email
+      email: this.email,
+      phoneNumbers: new FormArray([this.number])
     });
-
-    this.testArray = new FormArray([new FormControl(''), new FormControl('')]);
 
     this.patchProfileForm();
 

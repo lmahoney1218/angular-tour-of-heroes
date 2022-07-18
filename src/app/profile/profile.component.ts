@@ -31,37 +31,36 @@ export class ProfileComponent implements OnInit {
   firstName = new FormControl('', Validators.required);
   lastName = new FormControl('', Validators.required);
   email = new FormControl('', [ Validators.required, customEmailValidator() ])
-  number = new FormControl('');
- 
+
   constructor() { }
-
-  get phoneNumbers() {
-    return this.profileForm.controls['phoneNumbers'] as FormArray
-  }
-
-  createFormControl(index: number): FormControl{
-    return this.phoneNumbers.controls[index] as FormControl;
-  }
-
-  addFormControl() {
-    const newNumber = new FormGroup({
-      number: new FormControl('')
-    })
-
-    this.phoneNumbers.push(newNumber)
-  }
 
   ngOnInit(): void {
     this.profileForm = new FormGroup({
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
-      phoneNumbers: new FormArray([this.number])
+      phoneNumbers: new FormArray([
+        this.addPhoneNumbersFormGroup()
+      ])
     });
 
     this.patchProfileForm();
 
   } 
+
+  get phoneNumbers(): FormArray {
+    return this.profileForm.get('phoneNumbers') as FormArray;
+  }
+
+  addPhoneNumbersFormGroup() {
+    return new FormGroup({
+      number: new FormControl(''),
+    });
+  }
+
+  addFormControl(): void {
+    this.phoneNumbers.push(this.addPhoneNumbersFormGroup())
+  }
 
   patchProfileForm() {
     this.profileForm.patchValue(this.profile)

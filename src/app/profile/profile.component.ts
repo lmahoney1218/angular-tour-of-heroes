@@ -44,8 +44,10 @@ export class ProfileComponent implements OnInit {
       ])
     });
 
-    this.patchProfileForm();
+    //this.patchProfileForm();
     this.patchPhoneNumbers();
+    //this.loopPhoneNumberData();
+   // this.loopPhoneNumberArray();
   } 
 
   get phoneNumbers(): FormArray {
@@ -70,10 +72,58 @@ export class ProfileComponent implements OnInit {
     // this.phoneNumbers.patchValue([
     //   {number: '000-000-000'}
     // ])
-    let phoneNumbers= {
-      number: "000-000-000"
-    };
-    this.profileForm.get('phoneNumbers')?.patchValue([phoneNumbers])
+    // let phoneNumbers= {
+    //   number: "000-000-000"
+    // };
+    // this.profileForm.get('phoneNumbers')?.patchValue([phoneNumbers])
+
+  // this.profileForm.get('phoneNumbers')?.patchValue(this.profile.phoneNumbers)
+
+    //this.phoneNumbers.push(this.loopPhoneNumberData())
+  }
+
+  loopPhoneNumberData() {
+    
+    // let getIndex = this.phoneNumbers.at(1).value
+
+    // let getLength = this.phoneNumbers.length
+
+
+    // for (let i = 0; i < this.phoneNumbers.length; i++) {
+    //   let eachValue = this.phoneNumbers.at(i)
+
+    //   //eachValue.patchValue(this.profile)
+    //   console.log(eachValue)
+    // }
+
+    for (let i = 0; i < this.profile.phoneNumbers.length; i++) {
+      let eachValue = this.profile.phoneNumbers[i]
+      console.log(eachValue)
+      
+    }
+
+  }
+
+  loopPhoneNumberArray() {
+    
+    // let getIndex = this.phoneNumbers.at(1).value
+
+    // let getLength = this.phoneNumbers.length
+ console.log(this.phoneNumbers.length)
+    let arrayValue
+
+    for (let i = 0; i < this.phoneNumbers.length; i++) {
+      arrayValue = this.phoneNumbers.at(i).get('number') as FormGroup
+//arrayValue.push(this.loopPhoneNumberData)
+      //eachValue.patchValue(this.profile)
+      
+      console.log(arrayValue)
+       this.phoneNumbers.push(arrayValue);
+
+     console.log(arrayValue)
+    }
+    return arrayValue;
+   // this.profileForm.patchValue(this.loopPhoneNumberData);
   }
 
   onSubmit(formValues: Profile) {

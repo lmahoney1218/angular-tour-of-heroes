@@ -18,15 +18,17 @@
     <div formArrayName="phoneNumbers" *ngFor="let numbers of phoneNumbers.controls; let i = index">
         <div [formGroupName]="i">
             <p>
-                <label for="number">Number</label>
+                <label for="number">Number {{i}}</label>
                 <input type="text" id="number{{i}}" formControlName="number">
             </p>
         </div>
     </div>
        
     <button (click)="addFormControl()">add</button>
+    <button (click)="loopPhoneNumberData()">loop phone number data</button>
+    <button (click)="loopPhoneNumberArray()">loop phone array</button>
     <button type="submit" [disabled]="profileForm.invalid">Submit</button>
-
+    <p>Form Value: {{ profileForm.value | json }}</p>
     <p>form status: {{ profileForm.status }}</p>
 </form>
 

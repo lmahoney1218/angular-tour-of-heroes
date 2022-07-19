@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
     });
 
     //this.patchProfileForm();
-    this.patchPhoneNumbers();
+    //this.patchPhoneNumbers();
     //this.loopPhoneNumberData();
    // this.loopPhoneNumberArray();
   } 
@@ -69,32 +69,10 @@ export class ProfileComponent implements OnInit {
   }
   
   patchPhoneNumbers() {
-    // this.phoneNumbers.patchValue([
-    //   {number: '000-000-000'}
-    // ])
-    // let phoneNumbers= {
-    //   number: "000-000-000"
-    // };
-    // this.profileForm.get('phoneNumbers')?.patchValue([phoneNumbers])
-
-  // this.profileForm.get('phoneNumbers')?.patchValue(this.profile.phoneNumbers)
-
-    //this.phoneNumbers.push(this.loopPhoneNumberData())
+    this.profileForm.get('phoneNumbers')?.patchValue(this.profile.phoneNumbers)
   }
 
   loopPhoneNumberData() {
-    
-    // let getIndex = this.phoneNumbers.at(1).value
-
-    // let getLength = this.phoneNumbers.length
-
-
-    // for (let i = 0; i < this.phoneNumbers.length; i++) {
-    //   let eachValue = this.phoneNumbers.at(i)
-
-    //   //eachValue.patchValue(this.profile)
-    //   console.log(eachValue)
-    // }
 
     for (let i = 0; i < this.profile.phoneNumbers.length; i++) {
       let eachValue = this.profile.phoneNumbers[i]
@@ -105,25 +83,14 @@ export class ProfileComponent implements OnInit {
   }
 
   loopPhoneNumberArray() {
-    
-    // let getIndex = this.phoneNumbers.at(1).value
 
-    // let getLength = this.phoneNumbers.length
- console.log(this.phoneNumbers.length)
-    let arrayValue
+    console.log(this.phoneNumbers.length)
 
     for (let i = 0; i < this.phoneNumbers.length; i++) {
-      arrayValue = this.phoneNumbers.at(i).get('number') as FormGroup
-//arrayValue.push(this.loopPhoneNumberData)
-      //eachValue.patchValue(this.profile)
-      
-      console.log(arrayValue)
-       this.phoneNumbers.push(arrayValue);
+      let arrayValue = this.phoneNumbers.at(i).get('number') as FormGroup
 
-     console.log(arrayValue)
+      console.log(arrayValue)
     }
-    return arrayValue;
-   // this.profileForm.patchValue(this.loopPhoneNumberData);
   }
 
   onSubmit(formValues: Profile) {

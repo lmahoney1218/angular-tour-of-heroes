@@ -18,14 +18,13 @@
     <div formArrayName="phoneNumbers" *ngFor="let numbers of phoneNumbers.controls; let i = index">
         <div [formGroupName]="i">
             <p>
-                <label for="email">Number</label>
+                <label for="number">Number</label>
                 <input type="text" id="number{{i}}" formControlName="number">
             </p>
         </div>
     </div>
        
     <button (click)="addFormControl()">add</button>
-
     <button type="submit" [disabled]="profileForm.invalid">Submit</button>
 
     <p>form status: {{ profileForm.status }}</p>

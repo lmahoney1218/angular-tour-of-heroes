@@ -12,7 +12,7 @@ import { Profile } from './profile.model';
 export class ProfileComponent implements OnInit {
 
   // Data 
-  profile:Profile = {
+  profile: Profile = {
     "firstName": "Laura",
     "lastName": "Mahoney",
     "email": "laura@test.com",
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
 
   firstName = new FormControl('', Validators.required);
   lastName = new FormControl('', Validators.required);
-  email = new FormControl('', [ Validators.required, customEmailValidator() ])
+  email = new FormControl('', [ Validators.required, customEmailValidator() ]);
 
   constructor() { }
 
@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
     });
 
     this.patchProfileForm();
-
+    this.patchPhoneNumbers();
   } 
 
   get phoneNumbers(): FormArray {
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
 
   addPhoneNumbersFormGroup() {
     return new FormGroup({
-      number: new FormControl(''),
+      number: new FormControl('')
     });
   }
 
@@ -65,8 +65,18 @@ export class ProfileComponent implements OnInit {
   patchProfileForm() {
     this.profileForm.patchValue(this.profile)
   }
+  
+  patchPhoneNumbers() {
+    // this.phoneNumbers.patchValue([
+    //   {number: '000-000-000'}
+    // ])
+    let phoneNumbers= {
+      number: "000-000-000"
+    };
+    this.profileForm.get('phoneNumbers')?.patchValue([phoneNumbers])
+  }
 
-  onSubmit(formValues:Profile) {
+  onSubmit(formValues: Profile) {
     console.log(formValues)
   }
 

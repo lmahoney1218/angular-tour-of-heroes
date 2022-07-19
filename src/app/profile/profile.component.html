@@ -15,7 +15,7 @@
         <span class="error-message" *ngIf="emailError()">Must include "@" symbol</span>
     </p>
 
-    <div formArrayName="phoneNumbers" *ngFor="let numbers of phoneNumbers.controls; let i = index">
+    <div formArrayName="phoneNumbers" *ngFor="let numbers of PhoneNumbersArray.controls; let i = index">
         <div [formGroupName]="i">
             <p>
                 <label for="number">Number {{i}}</label>
@@ -25,10 +25,13 @@
     </div>
        
     <button (click)="addFormControl()">add</button>
+    <br>
     <button (click)="loopPhoneNumberData()">loop phone number data</button>
     <button (click)="loopPhoneNumberArray()">loop phone array</button>
+    <br>
     <button (click)="patchPhoneNumbers()">patch phone numbers</button>
-
+    <button (click)="patchProfileForm()">patch entire form</button>
+    
     <button type="submit" [disabled]="profileForm.invalid">Submit</button>
     <p>Form Value: {{ profileForm.value | json }}</p>
     <p>form status: {{ profileForm.status }}</p>

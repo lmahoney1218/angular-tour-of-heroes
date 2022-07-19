@@ -50,28 +50,34 @@ export class ProfileComponent implements OnInit {
    // this.loopPhoneNumberArray();
   } 
 
-  get phoneNumbers(): FormArray {
+  //getter method to read the value of the phone numbers array
+  get PhoneNumbersArray(): FormArray {
     return this.profileForm.get('phoneNumbers') as FormArray;
   }
 
+  //sets the FormGroup for the phoneNumbers Array
   addPhoneNumbersFormGroup() {
     return new FormGroup({
       number: new FormControl('')
     });
   }
 
+  //called on click in the template - pushes a new FormGroup to the FormArray
   addFormControl(): void {
-    this.phoneNumbers.push(this.addPhoneNumbersFormGroup())
+    this.PhoneNumbersArray.push(this.addPhoneNumbersFormGroup())
   }
 
+  //patches the whole form
   patchProfileForm() {
     this.profileForm.patchValue(this.profile)
   }
   
+  //Patches just the phone numbers
   patchPhoneNumbers() {
     this.profileForm.get('phoneNumbers')?.patchValue(this.profile.phoneNumbers)
   }
 
+  //Loops through the profile data phone numbers
   loopPhoneNumberData() {
 
     for (let i = 0; i < this.profile.phoneNumbers.length; i++) {
@@ -79,24 +85,25 @@ export class ProfileComponent implements OnInit {
       console.log(eachValue)
       
     }
-
   }
 
+  //Loops through the PhoneNumbersArray
   loopPhoneNumberArray() {
+    console.log(this.PhoneNumbersArray.length)
 
-    console.log(this.phoneNumbers.length)
-
-    for (let i = 0; i < this.phoneNumbers.length; i++) {
-      let arrayValue = this.phoneNumbers.at(i).get('number') as FormGroup
+    for (let i = 0; i < this.PhoneNumbersArray.length; i++) {
+      let arrayValue = this.PhoneNumbersArray.at(i).get('number') as FormGroup
 
       console.log(arrayValue)
     }
   }
 
+  //on submit actions
   onSubmit(formValues: Profile) {
     console.log(formValues)
   }
 
+  //Email validation
   emailError() {
     if(this.email.getError('invalidEmail') && this.email.dirty) {
       return true;

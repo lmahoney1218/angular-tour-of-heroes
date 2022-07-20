@@ -25,15 +25,6 @@
     </div>
        
     <button (click)="addFormControl()">add</button>
-    <br>
-    <button (click)="loopPhoneNumberData()">loop phone number data</button>
-    <button (click)="loopPhoneNumberArray()">loop phone array</button>
-    <br>
-    <button (click)="patchPhoneNumbers()">patch phone numbers</button>
-    <button (click)="patchProfileForm()">patch entire form</button>
-    <br>
-    <button (click)="populatePhoneFieldsBasedOnData()">populate phone number fields based on data</button>
-    <br>
     <button type="submit" [disabled]="profileForm.invalid">Submit</button>
     <p>Form Value: {{ profileForm.value | json }}</p>
     <p>form status: {{ profileForm.status }}</p>

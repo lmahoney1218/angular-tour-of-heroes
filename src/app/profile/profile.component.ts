@@ -42,13 +42,9 @@ export class ProfileComponent implements OnInit {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
-      phoneNumbers: new FormArray([
-        //this.addPhoneNumbersFormGroup(), this.addPhoneNumbersFormGroup(), this.addPhoneNumbersFormGroup()
-      ])
+      phoneNumbers: new FormArray([])
     });
-    //this.patchPhoneNumbers();
-    //this.loopPhoneNumberData();
-    // this.loopPhoneNumberArray();
+
     this.populatePhoneFieldsBasedOnData();
     this.patchProfileForm();
   } 
@@ -75,42 +71,15 @@ export class ProfileComponent implements OnInit {
     this.profileForm.patchValue(this.profile)
   }
   
-  //Patches just the phone numbers
-  patchPhoneNumbers() {
-    this.profileForm.get('phoneNumbers')?.patchValue(this.profile.phoneNumbers)
-  }
-
+  //loops through data and prepopulates phone number fields accordingly
   populatePhoneFieldsBasedOnData() {
-    const newFormGroup = this.addPhoneNumbersFormGroup();
-
     this.profile.phoneNumbers.forEach((item) => {
+      const newFormGroup = this.addPhoneNumbersFormGroup();
+
+      newFormGroup.patchValue(item)
 
       this.PhoneNumbersArray.push(newFormGroup);
-      
-      newFormGroup.patchValue(item)
-      console.log(item)
-    });
-  }
-
-  //Loops through the profile data phone numbers
-  loopPhoneNumberData() {
-
-    for (let i = 0; i < this.profile.phoneNumbers.length; i++) {
-      let eachValue = this.profile.phoneNumbers[i]
-      console.log(eachValue)
-      
-    }
-  }
-
-  //Loops through the PhoneNumbersArray
-  loopPhoneNumberArray() {
-    console.log(this.PhoneNumbersArray.length)
-
-    for (let i = 0; i < this.PhoneNumbersArray.length; i++) {
-      let arrayValue = this.PhoneNumbersArray.at(i).get('number') as FormGroup
-
-      console.log(arrayValue)
-    }
+    })
   }
 
   //on submit actions

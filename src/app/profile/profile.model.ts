@@ -8,6 +8,9 @@ export interface Profile {
         },
         {
             number: string;
+        },
+        {
+            number: string;
         }
     ]
 }

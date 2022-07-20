@@ -22,6 +22,9 @@ export class ProfileComponent implements OnInit {
         },
         {
             "number": "222-222-2222",
+        },
+        {
+            "number": "333-333-3333",
         }
     ]
   }
@@ -40,14 +43,14 @@ export class ProfileComponent implements OnInit {
       lastName: this.lastName,
       email: this.email,
       phoneNumbers: new FormArray([
-        this.addPhoneNumbersFormGroup()
+        //this.addPhoneNumbersFormGroup(), this.addPhoneNumbersFormGroup(), this.addPhoneNumbersFormGroup()
       ])
     });
-
-    //this.patchProfileForm();
     //this.patchPhoneNumbers();
     //this.loopPhoneNumberData();
-   // this.loopPhoneNumberArray();
+    // this.loopPhoneNumberArray();
+    this.populatePhoneFieldsBasedOnData();
+    this.patchProfileForm();
   } 
 
   //getter method to read the value of the phone numbers array
@@ -75,6 +78,18 @@ export class ProfileComponent implements OnInit {
   //Patches just the phone numbers
   patchPhoneNumbers() {
     this.profileForm.get('phoneNumbers')?.patchValue(this.profile.phoneNumbers)
+  }
+
+  populatePhoneFieldsBasedOnData() {
+    const newFormGroup = this.addPhoneNumbersFormGroup();
+
+    this.profile.phoneNumbers.forEach((item) => {
+
+      this.PhoneNumbersArray.push(newFormGroup);
+      
+      newFormGroup.patchValue(item)
+      console.log(item)
+    });
   }
 
   //Loops through the profile data phone numbers

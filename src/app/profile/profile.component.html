@@ -1,4 +1,5 @@
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm.value)">
+    <h2>Profile</h2>
     <p>
         <label for="firstName">First Name</label>
         <input type="text" id="firstName" formControlName="firstName">
@@ -14,13 +15,15 @@
         <input type="text" id="email" formControlName="email">
         <span class="error-message" *ngIf="emailError()">Must include "@" symbol</span>
     </p>
-
+    
+    <h2>Phone Numbers</h2>
     <div formArrayName="phoneNumbers" *ngFor="let numbers of PhoneNumbersArray.controls; let i = index">
-        <div [formGroupName]="i">
+        <div class="phone-number" [formGroupName]="i">
             <p>
                 <label for="number">Number {{i}}</label>
                 <input type="text" id="number{{i}}" formControlName="number">
             </p>
+            <button class="remove-button" (click)="removeNumber(i)">Remove</button>
         </div>
     </div>
        

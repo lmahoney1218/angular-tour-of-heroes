@@ -66,6 +66,11 @@ export class ProfileComponent implements OnInit {
     this.PhoneNumbersArray.push(this.addPhoneNumbersFormGroup())
   }
 
+  //
+  removeNumber(index: number) {
+    this.PhoneNumbersArray.removeAt(index)
+  }
+
   //patches the whole form
   patchProfileForm() {
     this.profileForm.patchValue(this.profile)

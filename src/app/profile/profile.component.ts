@@ -29,6 +29,23 @@ export class ProfileComponent implements OnInit {
     ]
   }
 
+  blankForm: Profile = {
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "phoneNumbers": [
+        {
+            "number": ""
+        },
+        {
+            "number": "",
+        },
+        {
+            "number": "",
+        }
+    ]
+  }
+
   profileForm!: FormGroup;
 
   firstName = new FormControl('', Validators.required);
@@ -85,6 +102,19 @@ export class ProfileComponent implements OnInit {
 
       this.PhoneNumbersArray.push(newFormGroup);
     })
+  }
+
+  //reset phone numbers
+  clearPhoneNumbers() {
+     // this.PhoneNumbersArray.reset()
+      this.PhoneNumbersArray.clear()
+    }
+
+  //Reset Form
+  clearForm() {
+  // this.profileForm.reset();
+   this.profileForm.patchValue(this.blankForm)   
+
   }
 
   //on submit actions

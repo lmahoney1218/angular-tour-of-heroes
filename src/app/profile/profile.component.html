@@ -15,7 +15,7 @@
         <input type="text" id="email" formControlName="email">
         <span class="error-message" *ngIf="emailError()">Must include "@" symbol</span>
     </p>
-    
+    <hr>
     <h2>Phone Numbers</h2>
     <div formArrayName="phoneNumbers" *ngFor="let numbers of PhoneNumbersArray.controls; let i = index">
         <div class="phone-number" [formGroupName]="i">
@@ -26,8 +26,10 @@
             <button class="remove-button" (click)="removeNumber(i)">Remove</button>
         </div>
     </div>
-       
     <button (click)="addFormControl()">add</button>
+    <hr>
+    <button (click)="clearForm()">Clear Form</button>
+    <button (click)="clearPhoneNumbers()">Clear Phone Numbers</button>
     <button type="submit" [disabled]="profileForm.invalid">Submit</button>
     <p>Form Value: {{ profileForm.value | json }}</p>
     <p>form status: {{ profileForm.status }}</p>

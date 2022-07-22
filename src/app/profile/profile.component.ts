@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { customEmailValidator } from './validators/email.validator';
+
 import { Profile } from './profile.model';
+import { ProfileService } from '../profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,40 +13,7 @@ import { Profile } from './profile.model';
 
 export class ProfileComponent implements OnInit {
 
-  // Data 
-  profile: Profile = {
-    "firstName": "Laura",
-    "lastName": "Mahoney",
-    "email": "laura@test.com",
-    "phoneNumbers": [
-        {
-            "number": "111-111-1111"
-        },
-        {
-            "number": "222-222-2222",
-        },
-        {
-            "number": "333-333-3333",
-        }
-    ]
-  }
-
-  blankForm: Profile = {
-    "firstName": "",
-    "lastName": "",
-    "email": "",
-    "phoneNumbers": [
-        {
-            "number": ""
-        },
-        {
-            "number": "",
-        },
-        {
-            "number": "",
-        }
-    ]
-  }
+  profiles: any;
 
   profileForm!: FormGroup;
 
@@ -52,9 +21,15 @@ export class ProfileComponent implements OnInit {
   lastName = new FormControl('', Validators.required);
   email = new FormControl('', [ Validators.required, customEmailValidator() ]);
 
-  constructor() { }
+  constructor(private profileService: ProfileService) { }
+
+  getProfileData(): void {
+    this.profileService.getProfile().subscribe(profiles => this.profiles = profiles);
+  }
 
   ngOnInit(): void {
+    this.getProfileData();
+
     this.profileForm = new FormGroup({
       firstName: this.firstName,
       lastName: this.lastName,
@@ -90,12 +65,12 @@ export class ProfileComponent implements OnInit {
 
   //patches the whole form
   patchProfileForm() {
-    this.profileForm.patchValue(this.profile)
+    this.profileForm.patchValue(this.profiles)
   }
   
   //loops through data and prepopulates phone number fields accordingly
   populatePhoneFieldsBasedOnData() {
-    this.profile.phoneNumbers.forEach((item) => {
+    this.profiles.phoneNumbers.forEach((item:any) => {
       const newFormGroup = this.addPhoneNumbersFormGroup();
 
       newFormGroup.patchValue(item)
@@ -112,9 +87,8 @@ export class ProfileComponent implements OnInit {
 
   //Reset Form
   clearForm() {
-  // this.profileForm.reset();
-   this.profileForm.patchValue(this.blankForm)   
-
+   this.profileForm.reset();
+   //this.profileForm.patchValue(this.blankForm)   
   }
 
   //on submit actions

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators, AbstractCon
 import { customEmailValidator } from './validators/email.validator';
 
 import { Profile } from './profile.model';
+import { PhoneNumber } from './profile.model';
 import { ProfileService } from '../profile.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { ProfileService } from '../profile.service';
 
 export class ProfileComponent implements OnInit {
 
-  profiles: any;
+  profiles!: Profile;
 
   profileForm = this.fb.group({
     firstName: ['', Validators.required],
@@ -67,7 +68,7 @@ export class ProfileComponent implements OnInit {
   
   //loops through data and prepopulates phone number fields accordingly
   populatePhoneFieldsBasedOnData() {
-    this.profiles.phoneNumbers.forEach((item:any) => {
+    this.profiles.phoneNumbers.forEach((item: PhoneNumber) => {
       const newFormGroup = this.addPhoneNumbersFormGroup();
 
       newFormGroup.patchValue(item)

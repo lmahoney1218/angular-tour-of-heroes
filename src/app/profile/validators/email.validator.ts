@@ -5,7 +5,11 @@ export function customEmailValidator(): ValidatorFn {
 
       if (control.value !== null) { 
 
-        return !control.value.includes('@') ? { invalidEmail: { value: control.value } } : null;
+        const errorToAddToControl = { invalidEmail: { value: control.value } };
+
+        return !control.value.includes('@')
+          ? errorToAddToControl
+          : null;
 
       } else {
 

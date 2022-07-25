@@ -17,13 +17,13 @@
     </p>
     <hr>
     <h2>Phone Numbers</h2>
-    <div formArrayName="phoneNumbers" *ngFor="let numbers of PhoneNumbersArray.controls; let i = index">
-        <div class="phone-number" [formGroupName]="i">
+    <div formArrayName="phoneNumbers" *ngFor="let _ of PhoneNumbersArray.controls; let phoneGroupIndex = index">
+        <div class="phone-number" [formGroupName]="phoneGroupIndex">
             <p>
-                <label for="number">Number {{i}}</label>
-                <input type="text" id="number{{i}}" formControlName="number">
+                <label for="number">Number {{phoneGroupIndex}}</label>
+                <input type="text" id="number{{phoneGroupIndex}}" formControlName="number">
             </p>
-            <button class="remove-button" (click)="removeNumber(i)">Remove</button>
+            <button class="remove-button" (click)="removeNumber(phoneGroupIndex)">Remove</button>
         </div>
     </div>
     <button (click)="addFormControl()">add</button>

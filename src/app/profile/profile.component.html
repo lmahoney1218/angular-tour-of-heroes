@@ -28,8 +28,8 @@
     </div>
     <button type="button" (click)="addFormControl()">add</button>
     <hr>
-    <button type="button" (click)="clearForm()">Clear Form</button>
-    <button type="button" (click)="clearPhoneNumbers()">Clear Phone Numbers</button>
+    <button type="button" (click)="resetForm()">Reset Form</button>
+    <button type="button" (click)="clearPhoneNumbers()">Delete All Phone Numbers</button>
     <button type="submit" [disabled]="profileForm.invalid">Submit</button>
     <p>Form Value: {{ profileForm.value | json }}</p>
     <p>form status: {{ profileForm.status }}</p>

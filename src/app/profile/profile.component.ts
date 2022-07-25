@@ -77,16 +77,14 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  //reset phone numbers
+  //delete all phone numbers
   clearPhoneNumbers() {
-     // this.PhoneNumbersArray.reset()
       this.PhoneNumbersArray.clear()
     }
 
   //Reset Form
-  clearForm() {
+  resetForm() {
    this.profileForm.reset();
-   //this.profileForm.patchValue(this.blankForm)   
   }
 
   //on submit actions

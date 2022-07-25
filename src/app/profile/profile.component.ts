@@ -28,10 +28,6 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService
   ) { }
 
-  getProfileData(): void {
-    this.profileService.getProfile().subscribe(profiles => this.profiles = profiles);
-  }
-
   ngOnInit(): void {
     this.getProfileData();
 
@@ -39,13 +35,17 @@ export class ProfileComponent implements OnInit {
     this.patchProfileForm();
   } 
 
+  private getProfileData(): void {
+    this.profileService.getProfile().subscribe(profiles => this.profiles = profiles);
+  }
+
   //getter method to read the value of the phone numbers array
   get PhoneNumbersArray(): FormArray {
     return this.profileForm.get('phoneNumbers') as FormArray;
   }
 
   //sets the FormGroup for the phoneNumbers Array
-  addPhoneNumbersFormGroup() {
+  private addPhoneNumbersFormGroup() {
     return this.fb.group({
       number: ['']
     });
@@ -62,12 +62,12 @@ export class ProfileComponent implements OnInit {
   }
 
   //patches the whole form
-  patchProfileForm() {
+  private patchProfileForm() {
     this.profileForm.patchValue(this.profiles)
   }
   
   //loops through data and prepopulates phone number fields accordingly
-  populatePhoneFieldsBasedOnData() {
+  private populatePhoneFieldsBasedOnData() {
     this.profiles.phoneNumbers.forEach((item: PhoneNumber) => {
       const newFormGroup = this.addPhoneNumbersFormGroup();
 

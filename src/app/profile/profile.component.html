@@ -1,19 +1,19 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm.value)">
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <h2>Profile</h2>
     <p>
         <label for="firstName">First Name</label>
         <input type="text" id="firstName" formControlName="firstName">
-        <span class="error-message" *ngIf="firstName.hasError('required') && firstName.dirty">Required Field</span>
+        <span class="error-message" *ngIf="controlHasError('firstName', 'required')">Required Field</span>
     </p>
     <p>
         <label for="lastName">Last Name</label>
         <input type="text" id="lastName" formControlName="lastName">
-        <span class="error-message" *ngIf="lastName.hasError('required') && lastName.dirty">Required Field</span>
+        <span class="error-message" *ngIf="controlHasError('lastName', 'required')">Required Field</span>
     </p>
     <p>
         <label for="email">Email</label>
         <input type="text" id="email" formControlName="email">
-        <span class="error-message" *ngIf="emailError()">Must include "@" symbol</span>
+        <span class="error-message" *ngIf="controlHasError('email', 'invalidEmail')">Must include "@" symbol</span>
     </p>
     <hr>
     <h2>Phone Numbers</h2>

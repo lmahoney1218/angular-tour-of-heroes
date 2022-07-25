@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { customEmailValidator } from './validators/email.validator';
 
 import { Profile } from './profile.model';
@@ -15,13 +15,17 @@ export class ProfileComponent implements OnInit {
 
   profiles: any;
 
-  profileForm!: FormGroup;
+  profileForm = this.fb.group({
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    email: ['', [Validators.required, customEmailValidator()] ],
+    phoneNumbers: this.fb.array([])
+  });
 
-  firstName = new FormControl('', Validators.required);
-  lastName = new FormControl('', Validators.required);
-  email = new FormControl('', [ Validators.required, customEmailValidator() ]);
-
-  constructor(private profileService: ProfileService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private profileService: ProfileService
+  ) { }
 
   getProfileData(): void {
     this.profileService.getProfile().subscribe(profiles => this.profiles = profiles);
@@ -29,13 +33,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfileData();
-
-    this.profileForm = new FormGroup({
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      phoneNumbers: new FormArray([])
-    });
 
     this.populatePhoneFieldsBasedOnData();
     this.patchProfileForm();
@@ -48,8 +45,8 @@ export class ProfileComponent implements OnInit {
 
   //sets the FormGroup for the phoneNumbers Array
   addPhoneNumbersFormGroup() {
-    return new FormGroup({
-      number: new FormControl('')
+    return this.fb.group({
+      number: ['']
     });
   }
 
@@ -92,17 +89,14 @@ export class ProfileComponent implements OnInit {
   }
 
   //on submit actions
-  onSubmit(formValues: Profile) {
-    console.log(formValues)
+  onSubmit() {
+    console.log(this.profileForm.value)
   }
 
-  //Email validation
-  emailError() {
-    if(this.email.getError('invalidEmail') && this.email.dirty) {
-      return true;
-    }
-    return null;
-
+  //Helper Function - Errors
+  controlHasError(controlName: string, errorType: string){ 
+    const control = this.profileForm.get(controlName); 
+    return control?.getError(errorType) && control.dirty; 
   }
 
 }

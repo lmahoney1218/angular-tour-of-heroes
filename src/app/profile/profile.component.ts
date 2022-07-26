@@ -30,8 +30,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfileData();
-
-    this.populatePhoneFieldsBasedOnData();
     this.patchProfileForm();
   } 
 
@@ -39,49 +37,11 @@ export class ProfileComponent implements OnInit {
     this.profileService.getProfile().subscribe(profiles => this.profiles = profiles);
   }
 
-  //getter method to read the value of the phone numbers array
-  get PhoneNumbersArray(): FormArray {
-    return this.profileForm.get('phoneNumbers') as FormArray;
-  }
-
-  //sets the FormGroup for the phoneNumbers Array
-  private addPhoneNumbersFormGroup() {
-    return this.fb.group({
-      number: ['']
-    });
-  }
-
-  //called on click in the template - pushes a new FormGroup to the FormArray
-  addFormControl(): void {
-    this.PhoneNumbersArray.push(this.addPhoneNumbersFormGroup())
-  }
-
-  //
-  removeNumber(index: number) {
-    this.PhoneNumbersArray.removeAt(index)
-  }
-
   //patches the whole form
   private patchProfileForm() {
     this.profileForm.patchValue(this.profiles)
   }
   
-  //loops through data and prepopulates phone number fields accordingly
-  private populatePhoneFieldsBasedOnData() {
-    this.profiles.phoneNumbers.forEach((item: PhoneNumber) => {
-      const newFormGroup = this.addPhoneNumbersFormGroup();
-
-      newFormGroup.patchValue(item)
-
-      this.PhoneNumbersArray.push(newFormGroup);
-    })
-  }
-
-  //delete all phone numbers
-  clearPhoneNumbers() {
-      this.PhoneNumbersArray.clear()
-    }
-
   //Reset Form
   resetForm() {
    this.profileForm.reset();

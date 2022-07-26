@@ -6,17 +6,3 @@ label {
     color: red;
     display: block;
 }
-
-.phone-number {
-    display: flex;
-    background: #ddd;
-    margin-bottom: 10px;
-    padding: 5px 20px;
-}
-
-.remove-button {
-   margin: 5px;
-   font-size: 14px;
-   align-self: center;
-   background: #ccc;
-}

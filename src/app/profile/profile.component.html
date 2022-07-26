@@ -15,21 +15,14 @@
         <input type="text" id="email" formControlName="email">
         <span class="error-message" *ngIf="controlHasError('email', 'invalidEmail')">Must include "@" symbol</span>
     </p>
+
     <hr>
-    <h2>Phone Numbers</h2>
-    <div formArrayName="phoneNumbers" *ngFor="let _ of PhoneNumbersArray.controls; let phoneGroupIndex = index">
-        <div class="phone-number" [formGroupName]="phoneGroupIndex">
-            <p>
-                <label for="number">Number {{phoneGroupIndex}}</label>
-                <input type="text" id="number{{phoneGroupIndex}}" formControlName="number">
-            </p>
-            <button class="remove-button" (click)="removeNumber(phoneGroupIndex)">Remove</button>
-        </div>
-    </div>
-    <button type="button" (click)="addFormControl()">add</button>
+
+   <phone-numbers-list [parentForm]="profileForm"></phone-numbers-list>
+
+    
     <hr>
     <button type="button" (click)="resetForm()">Reset Form</button>
-    <button type="button" (click)="clearPhoneNumbers()">Delete All Phone Numbers</button>
     <button type="submit" [disabled]="profileForm.invalid">Submit</button>
     <p>Form Value: {{ profileForm.value | json }}</p>
     <p>form status: {{ profileForm.status }}</p>

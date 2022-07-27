@@ -1,72 +1,41 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder} from '@angular/forms';
 
-import { ProfileService } from 'src/app/profile.service';
-import { Profile } from '../profile.model';
-import { PhoneNumber } from '../profile.model';
-
 @Component({
   selector: 'phone-numbers-list',
   templateUrl: './phone-numbers-list.component.html',
   styleUrls: ['./phone-numbers-list.component.css']
 })
+
 export class PhoneNumbersListComponent implements OnInit {
   
   @Input() parentForm!: FormGroup;
 
-  //profiles!: Profile;
-
-  constructor(
-    private fb: FormBuilder,
-   //private profileService: ProfileService
-  ) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-   // this.getProfileData();
-
-    this.populatePhoneFieldsBasedOnData();
-
     console.log(this.parentForm.controls['phoneNumbers'].value)
+    console.log(this.parentForm.controls['phoneNumbers'])
+    console.log(this.parentPhoneNumbersArray)
   }
 
-  // private getProfileData(): void {
-  //   this.profileService.getProfile().subscribe(profiles => this.profiles = profiles);
-  // }
-
-  get PhoneNumbersArray(): FormArray {
-    return this.parentForm.get('phoneNumbers') as FormArray;
-  }
-
-  //loops through data and prepopulates phone number fields accordingly
-  private populatePhoneFieldsBasedOnData() {
- //   this.profiles.phoneNumbers.forEach((item: PhoneNumber) => {
-      const newFormGroup = this.addPhoneNumbersFormGroup();
-      
-     newFormGroup.patchValue({number: 'hardcoded test'})
-    //  newFormGroup.patchValue(item)
-
-      this.PhoneNumbersArray.push(newFormGroup);
-  //  })
-  }
-
-  //sets the FormGroup for the phoneNumbers Array
-  private addPhoneNumbersFormGroup() {
-    return this.fb.group({
-      number: ['']
-    });
+  parentPhoneNumbersArray(): FormArray { 
+   return this.parentForm.get("phoneNumbers") as FormArray
   }
 
   addFormControl(): void {
-    this.PhoneNumbersArray.push(this.addPhoneNumbersFormGroup())
+    this.parentPhoneNumbersArray().push(this.fb.group({
+      number: ['']
+    }))
   }
 
   removeNumber(index: number) {
-    this.PhoneNumbersArray.removeAt(index)
+    this.parentPhoneNumbersArray().removeAt(index)
   }
 
   //delete all phone numbers
   clearPhoneNumbers() {
-    this.PhoneNumbersArray.clear()
+    this.parentPhoneNumbersArray().clear()
   }
 
 }

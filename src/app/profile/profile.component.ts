@@ -15,7 +15,6 @@ import { ProfileService } from '../profile.service';
 export class ProfileComponent implements OnInit {
 
   profiles!: Profile;
- //profileForm!: FormGroup;
 
   profileForm = this.fb.group({
     firstName: [''],
@@ -32,19 +31,31 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {    
     this.getProfileData();
     this.patchProfileForm();
-
-    console.log(this.profileForm.controls['phoneNumbers'].value)
-    console.log(this.profiles.phoneNumbers)
-
+    this.populatePhoneFieldsBasedOnData();
   } 
 
   private getProfileData(): void {
     this.profileService.getProfile().subscribe(profiles => this.profiles = profiles);
   }
 
-  //patches the whole form
   private patchProfileForm() {
     this.profileForm.patchValue(this.profiles)
+  }
+
+  get PhoneNumbersArray(): FormArray {
+    return this.profileForm.get('phoneNumbers') as FormArray;
+  }
+
+  populatePhoneFieldsBasedOnData() {
+    this.profiles.phoneNumbers.forEach((item: PhoneNumber) => {
+      const newFormGroup = this.fb.group({
+        number: ['']
+      });
+
+      newFormGroup.patchValue(item)
+
+      this.PhoneNumbersArray.push(newFormGroup);
+    })
   }
   
   //Reset Form

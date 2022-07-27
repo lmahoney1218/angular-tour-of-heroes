@@ -8,7 +8,9 @@
             </p>
             <button class="remove-button" (click)="removeNumber(phoneGroupIndex)">Remove</button> 
         </div>
+        <p>{{_.value | json}}</p>
     </div>
+    <p>{{ parentForm.value | json }}</p>
     <button type="button" (click)="addFormControl()">add</button>
     <button type="button" (click)="clearPhoneNumbers()">Delete All Phone Numbers</button>
 </ng-container>

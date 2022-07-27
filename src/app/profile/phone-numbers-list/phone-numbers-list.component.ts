@@ -14,22 +14,24 @@ export class PhoneNumbersListComponent implements OnInit {
   
   @Input() parentForm!: FormGroup;
 
-  profiles!: Profile;
+  //profiles!: Profile;
 
   constructor(
     private fb: FormBuilder,
-    private profileService: ProfileService
+   //private profileService: ProfileService
   ) { }
 
   ngOnInit(): void {
-    this.getProfileData();
+   // this.getProfileData();
 
     this.populatePhoneFieldsBasedOnData();
+
+    console.log(this.parentForm.controls['phoneNumbers'].value)
   }
 
-  private getProfileData(): void {
-    this.profileService.getProfile().subscribe(profiles => this.profiles = profiles);
-  }
+  // private getProfileData(): void {
+  //   this.profileService.getProfile().subscribe(profiles => this.profiles = profiles);
+  // }
 
   get PhoneNumbersArray(): FormArray {
     return this.parentForm.get('phoneNumbers') as FormArray;
@@ -37,13 +39,14 @@ export class PhoneNumbersListComponent implements OnInit {
 
   //loops through data and prepopulates phone number fields accordingly
   private populatePhoneFieldsBasedOnData() {
-    this.profiles.phoneNumbers.forEach((item: PhoneNumber) => {
+ //   this.profiles.phoneNumbers.forEach((item: PhoneNumber) => {
       const newFormGroup = this.addPhoneNumbersFormGroup();
-
-      newFormGroup.patchValue(item)
+      
+     newFormGroup.patchValue({number: 'hardcoded test'})
+    //  newFormGroup.patchValue(item)
 
       this.PhoneNumbersArray.push(newFormGroup);
-    })
+  //  })
   }
 
   //sets the FormGroup for the phoneNumbers Array

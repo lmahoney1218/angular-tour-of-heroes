@@ -14,6 +14,7 @@ import { InMemoryDataService } from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PhoneNumbersListComponent } from './profile/phone-numbers-list/phone-numbers-list.component';
+import { FirstNameComponent } from './profile/first-name/first-name.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PhoneNumbersListComponent } from './profile/phone-numbers-list/phone-nu
     DashboardComponent,
     HeroSearchComponent,
     ProfileComponent,
-    PhoneNumbersListComponent
+    PhoneNumbersListComponent,
+    FirstNameComponent
   ],
   imports: [
     BrowserModule,

@@ -15,9 +15,10 @@ import { ProfileService } from '../profile.service';
 export class ProfileComponent implements OnInit {
 
   profiles!: Profile;
+ //profileForm!: FormGroup;
 
   profileForm = this.fb.group({
-    firstName: ['', Validators.required],
+    firstName: [''],
     lastName: ['', Validators.required],
     email: ['', [Validators.required, customEmailValidator()] ],
     phoneNumbers: this.fb.array([])
@@ -28,9 +29,13 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.getProfileData();
     this.patchProfileForm();
+
+    console.log(this.profileForm.controls['phoneNumbers'].value)
+    console.log(this.profiles.phoneNumbers)
+
   } 
 
   private getProfileData(): void {

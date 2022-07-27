@@ -1,10 +1,8 @@
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <h2>Profile</h2>
-    <p>
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" formControlName="firstName">
-        <span class="error-message" *ngIf="controlHasError('firstName', 'required')">Required Field</span>
-    </p>
+
+    <first-name [parentForm]="profileForm"></first-name>
+
     <p>
         <label for="lastName">Last Name</label>
         <input type="text" id="lastName" formControlName="lastName">
@@ -20,7 +18,6 @@
 
    <phone-numbers-list [parentForm]="profileForm"></phone-numbers-list>
 
-    
     <hr>
     <button type="button" (click)="resetForm()">Reset Form</button>
     <button type="submit" [disabled]="profileForm.invalid">Submit</button>

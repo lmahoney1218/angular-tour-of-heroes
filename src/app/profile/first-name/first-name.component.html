@@ -1,0 +1,8 @@
+<ng-container [formGroup]="parentForm">
+    <p>
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" formControlName="firstName">
+        <!-- <span class="error-message" *ngIf="controlHasError('firstName', 'required')">Required Field</span> -->
+    </p>
+    <p>{{ parentForm.value | json }}</p>
+</ng-container>
